@@ -63,26 +63,26 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    // public function logout() {
-    //     auth()->logout();
-    //     return response()->json(['message' => 'User successfully signed out']);
-    // }
-    // /**
-    //  * Refresh a token.
-    //  *
-    //  * @return \Illuminate\Http\JsonResponse
-    //  */
-    // public function refresh() {
-    //     return $this->createNewToken(auth()->refresh());
-    // }
-    // /**
-    //  * Get the authenticated User.
-    //  *
-    //  * @return \Illuminate\Http\JsonResponse
-    //  */
-    // public function userProfile() {
-    //     return response()->json(auth()->user());
-    // }
+    public function logout() {
+        auth()->logout();
+        return response()->json(['message' => 'User successfully signed out']);
+    }
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh() {
+        return $this->createNewToken(auth()->refresh());
+    }
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userProfile() {
+        return response()->json(auth()->user());
+    }
     /**
      * Get the token array structure.
      *
@@ -94,7 +94,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 600,
+            'expires_in' =>auth()->factory()->getTTL() * null,
             'user' => auth()->user()
         ]);
     }

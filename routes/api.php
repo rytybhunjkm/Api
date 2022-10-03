@@ -25,13 +25,17 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     // Route::post('/logout', [AuthController::class, 'logout']);
     // Route::post('/refresh', [AuthController::class, 'refresh']);
-    // Route::get('/user-profile', [AuthController::class, 'userProfile']);
+     Route::get('/user-profile', [AuthController::class, 'userProfile']);
+  Route::resource('/posts', PostController::class);
+  Route::resource('/comments', CommentController::class);
+
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-}
-);
-Route::resource('posts', PostController::class);
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+
+// }
+// );
+
 
 
