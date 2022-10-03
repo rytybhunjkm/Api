@@ -40,7 +40,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->hasMany(Post::class);
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(comment::class);
     }
 
     public function getJWTIdentifier()

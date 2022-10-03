@@ -37,11 +37,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
             //'photo' => 'required',
-            'user_id' => 'required',
-
+            // 'user_id' => 'required',
         ]);
-
-        // $this::img($request->image);
 
 
         // $user_id=auth()->user()->id;
@@ -56,13 +53,13 @@ class PostController extends Controller
         if ($validator->fails()) {
             return $this->apiResponse(null,$validator->errors(),400);
         }
-
+        $user_id=auth()->user()->id;
         $post = Posts::create([
 
             'title'=>$request->title,
             'body'=>$request->body,
             'photo'=>$file_name,
-            'user_id'=>$request->user_id,
+            'user_id'=>$user_id,
         ]);
         if($post){
             return $this->apiResponse($post,'The post Save',201);
