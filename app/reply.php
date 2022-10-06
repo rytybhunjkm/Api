@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class comment extends Model
+class reply extends Model
 {
     protected $guarded = [];
-
     public function post()
     {
         return $this->belongsTo(posts::class);
@@ -17,12 +16,12 @@ class comment extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function like_comment()
+    public function comment()
     {
-        return $this->hasMany(likeComment::class);
+        return $this->belongsTo(comment::class);
     }
-    public function Reply()
+    public function like_reply()
     {
-        return $this->hasMany(reply::class);
+        return $this->hasMany(likeReply::class);
     }
 }
