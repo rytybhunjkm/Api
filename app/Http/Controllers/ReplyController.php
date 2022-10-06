@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\comment;
-use App\posts;
+use App\reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\ApiResponseTrait;
-class CommentController extends Controller
+class ReplyController extends Controller
 {
     use ApiResponseTrait;
     /**
@@ -17,12 +16,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-    //     $comments=comment::find(1);
-    //    $user_id=$comments->user;
-    //    $post_id=$comments->post;
-    $comments=comment::all();
-       return $this->apiResponse($comments,'ok',200);
-    }
+        $reply=reply::all();
+        return $this->apiResponse($reply,'ok',200);
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -53,29 +49,26 @@ class CommentController extends Controller
         }
 
         $user_id=auth()->user()->id;
-        $comment = comment::create([
+        $reply = reply::create([
             'body'=>$request->body,
-            'post_id'=>$request->post_id,
+            'comment_id'=>$request->comment_id,
             'user_id'=>$user_id,
         ]);
 
-        if($comment){
-            return $this->apiResponse($comment,'The comment Save',201);
+        if($reply){
+            return $this->apiResponse($reply,'The reply Save',201);
         }
 
-        return $this->apiResponse(null,'The comment Not Save',400);
+        return $this->apiResponse(null,'The reply Not Save',400);
     }
-
-
-
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\comment  $comment
+     * @param  \App\reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function show(comment $comment)
+    public function show(reply $reply)
     {
         //
     }
@@ -83,10 +76,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\comment  $comment
+     * @param  \App\reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function edit(comment $comment)
+    public function edit(reply $reply)
     {
         //
     }
@@ -95,7 +88,7 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\comment  $comment
+     * @param  \App\reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request ,$id)
@@ -109,19 +102,19 @@ class CommentController extends Controller
             return $this->apiResponse(null,$validator->errors(),400);
         }
 
-        $comment=comment::find($id);
+        $reply=reply::find($id);
 
-        if(!$comment){
-            return $this->apiResponse(null,'The comment Not Found',404);
+        if(!$reply){
+            return $this->apiResponse(null,'The reply Not Found',404);
         }
 
-        $comment->update([
+        $reply->update([
 
         'body'=>$request->body,
         ]);
 
-        if($comment){
-            return $this->apiResponse($comment,'The comment update',201);
+        if($reply){
+            return $this->apiResponse($reply,'The reply update',201);
         }
 
     }
@@ -129,21 +122,21 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\comment  $comment
+     * @param  \App\reply  $reply
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
 
-        $comment=comment::find($id);
+        $reply=reply::find($id);
 
-        if(!$comment){
-            return $this->apiResponse(null,'The comment Not Found',404);
+        if(!$reply){
+            return $this->apiResponse(null,'The reply Not Found',404);
         }
 
-        $comment->delete($id);
+        $reply->delete($id);
 
-        if($comment){
-            return $this->apiResponse(null,'The comment deleted',200);
+        if($reply){
+            return $this->apiResponse(null,'The reply deleted',200);
         }
 
     }

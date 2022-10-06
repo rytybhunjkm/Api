@@ -4,20 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class posts extends Model
+class likeReply extends Model
 {
     protected $guarded = [];
 
-    public function comment()
-    {
-        return $this->hasMany(comment::class);
-    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function likepost()
+    public function reply()
     {
-        return $this->hasMany(likePost::class);
+        return $this->belongsTo(reply::class);
     }
 }
